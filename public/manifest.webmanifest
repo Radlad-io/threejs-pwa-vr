@@ -2,6 +2,10 @@
   "short_name": "Three VR App",
   "name": "Threejs PWA AR Application",
   "id": "/",
+  "start_url": "index.html",
+  "background_color": "#000000",
+  "theme_color": "#ffffff",
+  "display": "standalone",
   "icons": [
     {
       "src":"/icons/icon72.png",
@@ -27,9 +31,5 @@
       "type": "image/png",
       "purpose": "maskable"
       }
-  ],
-  "start_url": "index.html",
-  "background_color": "#000000",
-  "theme_color": "#ffffff",
-  "display": "standalone"
+  ]
 }
