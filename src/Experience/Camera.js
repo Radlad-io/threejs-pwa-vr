@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import Experience from "@Experience/Experience.js";
 
-import VR from "@Utils/VR.js";
+// import VR from "@Utils/VR.js";
 
 export default class Camera {
   constructor() {
@@ -10,7 +10,7 @@ export default class Camera {
     this.sizes = this.experience.sizes;
     this.scene = this.experience.scene;
     this.canvas = this.experience.canvas;
-    this.vr = new VR();
+    // this.vr = new VR();
 
     this.setInstace();
     this.setOrbitControls();
