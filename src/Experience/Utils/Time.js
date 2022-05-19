@@ -1,4 +1,5 @@
 import EventEmitter from "@Utils/EventEmitter";
+import Experience from "@Experience/Experience.js";
 
 export default class Time extends EventEmitter {
   constructor() {
@@ -10,6 +11,9 @@ export default class Time extends EventEmitter {
     this.elapsed = 0;
     // initial delta starts at 1/60 fps to avoide bugs
     this.delta = 16;
+
+    this.experience = new Experience();
+    this.renderer = this.experience.renderer;
 
     // waits 1 frame to start tick sequence
     window.requestAnimationFrame(() => {

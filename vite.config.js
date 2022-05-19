@@ -2,6 +2,7 @@ import path, { resolve } from "path";
 import { defineConfig } from "vite";
 
 module.exports = defineConfig({
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

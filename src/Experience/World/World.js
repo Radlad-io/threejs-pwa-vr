@@ -1,22 +1,26 @@
 import * as THREE from "three";
 
 import Experience from "@Experience/Experience.js";
-import Enviorment from "@World/Enviorment.js";
+import Environment from "@World/Environment.js";
+import Floor from "@World/Floor";
+import Fox from "@World/Fox";
 
 export default class World {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
-    console.log(this.scene);
+    this.resources = this.experience.resources;
 
-    const testMesh = new THREE.Mesh(
-      new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshStandardMaterial({ color: 0xffffff })
-    );
+    this.resources.on("loaded", () => {
+      this.floor = new Floor();
+      this.fox = new Fox();
+      this.enviorment = new Environment();
+    });
+  }
 
-    this.scene.add(testMesh);
-
-    // Setup
-    this.enviorment = new Enviorment();
+  update() {
+    if (this.fox) {
+      this.fox.update();
+    }
   }
 }
