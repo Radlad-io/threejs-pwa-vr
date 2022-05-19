@@ -2,7 +2,6 @@ import path, { resolve } from "path";
 import { defineConfig } from "vite";
 
 module.exports = defineConfig({
-  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -11,4 +10,5 @@ module.exports = defineConfig({
       "@World": path.resolve(__dirname, "./src/Experience/World"),
     },
   },
+  assetsInclude: ["**/*.gltf", "**/*.glb", "**/*.mp4", "**/*.json"],
 });
