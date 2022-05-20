@@ -1,4 +1,5 @@
 import EventEmitter from "@Utils/EventEmitter";
+import Stats from "stats.js";
 import Experience from "@Experience/Experience.js";
 
 export default class Time extends EventEmitter {
@@ -11,6 +12,15 @@ export default class Time extends EventEmitter {
     this.elapsed = 0;
     // initial delta starts at 1/60 fps to avoide bugs
     this.delta = 16;
+
+    // Stats
+    this.experience = new Experience();
+    this.debug = this.experience.debug;
+    this.stats = new Stats();
+    this.stats.showPanel(0);
+    if (this.debug.active) {
+      document.body.appendChild(this.stats.dom);
+    }
 
     this.experience = new Experience();
     this.renderer = this.experience.renderer;
@@ -30,6 +40,11 @@ export default class Time extends EventEmitter {
     this.trigger("tick");
 
     window.requestAnimationFrame(() => {
+      if (this.debug.active) {
+        // TODO: Not sure this is working as intended
+        this.stats.begin();
+        this.stats.end();
+      }
       this.tick();
     });
   }

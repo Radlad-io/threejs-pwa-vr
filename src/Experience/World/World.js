@@ -1,8 +1,9 @@
 import * as THREE from "three";
-
 import Experience from "@Experience/Experience.js";
+
 import Environment from "@World/Environment.js";
 import Floor from "@World/Floor";
+import VideoSphere from "@World/VideoSphere.js";
 import Fox from "@World/Fox";
 
 export default class World {
@@ -15,6 +16,7 @@ export default class World {
       this.floor = new Floor();
       this.fox = new Fox();
       this.enviorment = new Environment();
+      this.videoSphere = new VideoSphere();
     });
   }
 
