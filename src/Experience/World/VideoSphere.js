@@ -1,6 +1,9 @@
 import * as THREE from "three";
 import Experience from "@Experience/Experience.js";
 
+// TODO: Should be a cube / skybox
+// https://github.com/EnayetHossain/3d-world/blob/master/public/client.js
+
 export default class VideoSphere {
   constructor() {
     this.experience = new Experience();
