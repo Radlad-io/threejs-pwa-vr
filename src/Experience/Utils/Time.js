@@ -22,9 +22,6 @@ export default class Time extends EventEmitter {
       document.body.appendChild(this.stats.dom);
     }
 
-    this.experience = new Experience();
-    this.renderer = this.experience.renderer;
-
     // waits 1 frame to start tick sequence
     window.requestAnimationFrame(() => {
       this.tick();

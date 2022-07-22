@@ -7,7 +7,6 @@ import Renderer from "@Experience/Renderer";
 import World from "@World/World.js";
 import Resources from "@Utils/Resources.js";
 import Debug from "@Utils/Debug.js";
-import VR from "@Utils/VR.js";
 
 import sources from "@Experience/sources.js";
 
@@ -23,7 +22,6 @@ export default class Experience {
 
     // Global access
     window.experience = this;
-    this.vr = new VR();
 
     // Options
     this.canvas = canvas;
@@ -37,6 +35,7 @@ export default class Experience {
     this.camera = new Camera();
     this.renderer = new Renderer();
     this.world = new World();
+    // this.vr = new VR();
 
     this.sizes.on("resize", () => {
       // Arrow function maintains context

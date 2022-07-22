@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { VRButton } from "three/examples/jsm/webxr/VRButton.js";
 import Experience from "@Experience/Experience.js";
 
 export default class Renderer {
@@ -27,9 +28,9 @@ export default class Renderer {
     this.instance.setClearColor("#211d20");
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
-
     if (this.vr) {
       this.instance.xr.enabled = true;
+      document.body.appendChild(VRButton.createButton(this.instance));
     }
   }
 
@@ -39,6 +40,12 @@ export default class Renderer {
   }
 
   update() {
-    this.instance.render(this.scene, this.camera.instance);
+    if (this.vr) {
+      this.instance.setAnimationLoop(() => {
+        this.instance.render(this.scene, this.camera.instance);
+      });
+    } else {
+      this.instance.render(this.scene, this.camera.instance);
+    }
   }
 }
