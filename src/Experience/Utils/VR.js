@@ -1,10 +1,10 @@
 import { VRButton } from "three/examples/jsm/webxr/VRButton.js";
-import Experience from "@Experience/Experience.js";
 
 export default class VR {
   constructor() {
-    this.experience = new Experience();
-    this.renderer = this.experience.renderer;
-    document.body.appendChild(VRButton.createButton(this.renderer));
+    this.enabled = window.location.hash === "#vr";
+    if (this.enabled) {
+      document.body.appendChild(VRButton.createButton(this.renderer));
+    }
   }
 }

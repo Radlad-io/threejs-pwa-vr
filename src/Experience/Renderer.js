@@ -3,6 +3,7 @@ import Experience from "@Experience/Experience.js";
 
 export default class Renderer {
   constructor() {
+    this.vr = window.location.hash === "#vr";
     this.experience = new Experience();
     this.canvas = this.experience.canvas;
     this.sizes = this.experience.sizes;
@@ -26,7 +27,10 @@ export default class Renderer {
     this.instance.setClearColor("#211d20");
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
-    this.instance.xr.enabled = true;
+
+    if (this.vr) {
+      this.instance.xr.enabled = true;
+    }
   }
 
   resize() {
