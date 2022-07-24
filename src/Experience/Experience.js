@@ -8,7 +8,7 @@ import World from "@World/World.js";
 import Resources from "@Utils/Resources.js";
 import Debug from "@Utils/Debug.js";
 
-import sources from "@Experience/sources.js";
+import Sources from "@Experience/Sources.js";
 
 //  Instancing is for singletons
 let instance = null;
@@ -31,7 +31,7 @@ export default class Experience {
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
-    this.resources = new Resources(sources);
+    this.resources = new Resources(Sources);
     this.camera = new Camera();
     this.renderer = new Renderer();
     this.world = new World();
