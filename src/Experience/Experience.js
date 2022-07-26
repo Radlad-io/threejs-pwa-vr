@@ -8,7 +8,7 @@ import World from "@World/World.js";
 import Resources from "@Utils/Resources.js";
 import Debug from "@Utils/Debug.js";
 
-import Sources from "@Experience/Sources.js";
+import Sources from "@Experience/sources.js";
 
 //  Instancing is for singletons
 let instance = null;
