@@ -1,5 +1,4 @@
 import EventEmitter from "@Utils/EventEmitter";
-import Stats from "stats.js";
 import Experience from "@Experience/Experience.js";
 
 export default class Time extends EventEmitter {
@@ -16,16 +15,22 @@ export default class Time extends EventEmitter {
     // Stats
     this.experience = new Experience();
     this.debug = this.experience.debug;
-    this.stats = new Stats();
-    this.stats.showPanel(0);
-    if (this.debug.active) {
-      document.body.appendChild(this.stats.dom);
-    }
+    this.initDebug();
 
     // waits 1 frame to start tick sequence
     window.requestAnimationFrame(() => {
       this.tick();
     });
+  }
+
+  initDebug() {
+    if (this.debug.active) {
+      this.fpsGraph = this.debug.pane.addBlade({
+        view: "fpsgraph",
+        label: "Framerate",
+        lineCount: 2,
+      });
+    }
   }
 
   tick() {
@@ -38,11 +43,12 @@ export default class Time extends EventEmitter {
 
     window.requestAnimationFrame(() => {
       if (this.debug.active) {
-        // TODO: Not sure this is working as intended
-        this.stats.begin();
-        this.stats.end();
+        this.fpsGraph.begin();
+        this.tick();
+        this.fpsGraph.end();
+      } else {
+        this.tick();
       }
-      this.tick();
     });
   }
 }

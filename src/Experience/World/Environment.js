@@ -9,11 +9,15 @@ export default class Environment {
     this.debug = this.experience.debug;
 
     if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder("enviornment");
+      this.debugFolder = this.debug.pane.addFolder({
+        title: "Environment",
+        expanded: true,
+      });
     }
 
     this.setSunLight();
     this.setEnviornmentMap();
+    this.initDebug();
   }
 
   setSunLight() {
@@ -24,28 +28,6 @@ export default class Environment {
     this.sunLight.shadow.normalBias = 0.05;
     this.sunLight.position.set(3, 3, -2.25);
     this.scene.add(this.sunLight);
-
-    // Debug
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.sunLight, "intensity")
-        .name("sunLightIntensity")
-        .min(0)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.sunLight.position, "x")
-        .name("sunLightX")
-        .min(-5)
-        .max(5)
-        .step(0.001);
-      this.debugFolder
-        .add(this.sunLight.position, "y")
-        .name("sunLightY")
-        .min(-5)
-        .max(5)
-        .step(0.001);
-    }
   }
 
   setEnviornmentMap() {
@@ -70,15 +52,54 @@ export default class Environment {
     };
 
     this.environmentMap.updateMaterials();
+  }
 
+  initDebug() {
     if (this.debug.active) {
-      this.debugFolder
-        .add(this.environmentMap, "intensity")
-        .name("envMapIntensity")
-        .min(0)
-        .max(4)
-        .step(0.001)
-        .onChange(this.environmentMap.updateMaterials);
+      const sliders = {
+        lightIntensity: this.debug.pane.addBlade({
+          view: "slider",
+          label: "Sun Intensity",
+          min: 0,
+          max: 10,
+          value: this.sunLight.intensity,
+        }),
+        positionX: this.debug.pane.addBlade({
+          view: "slider",
+          label: "Position X",
+          min: -5,
+          max: 5,
+          value: this.sunLight.position.x,
+        }),
+        positionY: this.debug.pane.addBlade({
+          view: "slider",
+          label: "Position Y",
+          min: -5,
+          max: 5,
+          value: this.sunLight.position.y,
+        }),
+        envIntensity: this.debug.pane.addBlade({
+          view: "slider",
+          label: "Env Intensity",
+          min: 0,
+          max: 4,
+          value: this.environmentMap.intensity,
+        }),
+      };
+
+      sliders.lightIntensity.on("change", (e) => {
+        this.sunLight.intensity = e.value;
+      });
+      sliders.positionX.on("change", (e) => {
+        this.sunLight.position.x = e.value;
+      });
+      sliders.positionY.on("change", (e) => {
+        this.sunLight.position.y = e.value;
+      });
+      sliders.envIntensity.on("change", (e) => {
+        this.environmentMap.intensity = e.value;
+        this.environmentMap.updateMaterials();
+      });
     }
   }
 }

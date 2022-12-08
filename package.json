@@ -11,9 +11,9 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "lil-gui": "^0.16.1",
-    "stats.js": "^0.17.0",
+    "@tweakpane/plugin-essentials": "^0.1.5",
     "three": "^0.140.2",
-    "toastify-js": "^1.11.2"
+    "toastify-js": "^1.11.2",
+    "tweakpane": "^3.1.1"
   }
 }

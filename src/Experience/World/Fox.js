@@ -10,13 +10,17 @@ export default class Fox {
     this.debug = this.experience.debug;
 
     if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder("fox");
+      this.debugFolder = this.debug.pane.addFolder({
+        title: "Fox",
+        expanded: true,
+      });
     }
 
     this.resource = this.resources.items.foxModel;
 
     this.setModel();
     this.setAnimation();
+    this.initDebug();
   }
 
   setModel() {
@@ -61,9 +65,11 @@ export default class Fox {
 
       this.animation.actions.current = newAction;
     };
+  }
 
+  initDebug() {
     if (this.debug.active) {
-      const debugObject = {
+      const animations = {
         playIdle: () => {
           this.animation.play("idle", 1);
         },
@@ -74,9 +80,24 @@ export default class Fox {
           this.animation.play("running", 0.5);
         },
       };
-      this.debugFolder.add(debugObject, "playIdle");
-      this.debugFolder.add(debugObject, "playWalking");
-      this.debugFolder.add(debugObject, "playRunning");
+
+      this.buttons = {
+        idle: this.debug.pane.addButton({
+          title: "Play",
+          label: "Idle", // optional
+        }),
+        walk: this.debug.pane.addButton({
+          title: "Play",
+          label: "Walk", // optional
+        }),
+        run: this.debug.pane.addButton({
+          title: "Play",
+          label: "Run", // optional
+        }),
+      };
+      this.buttons.idle.on("click", animations.playIdle);
+      this.buttons.walk.on("click", animations.playWalking);
+      this.buttons.run.on("click", animations.playRunning);
     }
   }
 
