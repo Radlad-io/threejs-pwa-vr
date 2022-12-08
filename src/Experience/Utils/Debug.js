@@ -8,6 +8,10 @@ export default class Debug {
     if (this.active) {
       this.pane = new Pane();
       this.pane.registerPlugin(EssentialsPlugin);
+
+      this.tabs = this.pane.addTab({
+        pages: [{ title: "Framerate" }, { title: "Info" }],
+      });
     }
   }
 }

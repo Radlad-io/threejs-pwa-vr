@@ -77,27 +77,36 @@ export default class Fox {
           this.animation.play("walking", 1);
         },
         playRunning: () => {
-          this.animation.play("running", 0.5);
+          this.animation.play("running", 1);
         },
       };
 
-      this.buttons = {
-        idle: this.debug.pane.addButton({
-          title: "Play",
-          label: "Idle", // optional
-        }),
-        walk: this.debug.pane.addButton({
-          title: "Play",
-          label: "Walk", // optional
-        }),
-        run: this.debug.pane.addButton({
-          title: "Play",
-          label: "Run", // optional
-        }),
+      const params = {
+        animation: "idle",
       };
-      this.buttons.idle.on("click", animations.playIdle);
-      this.buttons.walk.on("click", animations.playWalking);
-      this.buttons.run.on("click", animations.playRunning);
+      const clips = ["idle", "walk", "run"];
+      this.debug.pane
+        .addInput(params, "animation", {
+          view: "radiogrid",
+          groupName: "clips",
+          size: [3, 1],
+          cells: (x, y) => ({
+            title: `${clips[y * 3 + x]}`,
+            value: clips[y * 3 + x],
+          }),
+          label: "animations",
+        })
+        .on("change", (e) => {
+          if (e.value === "idle") {
+            animations.playIdle();
+          }
+          if (e.value === "walk") {
+            animations.playWalking();
+          }
+          if (e.value === "run") {
+            animations.playRunning();
+          }
+        });
     }
   }
 

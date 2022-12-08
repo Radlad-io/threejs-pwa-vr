@@ -10,6 +10,7 @@ export default class Renderer {
     this.sizes = this.experience.sizes;
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
+    this.debug = this.experience.debug;
 
     this.setInstance();
   }
@@ -31,6 +32,93 @@ export default class Renderer {
     if (this.vr) {
       this.instance.xr.enabled = true;
       document.body.appendChild(VRButton.createButton(this.instance));
+    }
+    console.log(this.instance.info);
+    this.initDebug();
+  }
+
+  initDebug() {
+    if (this.debug.active) {
+      // TODO: Need to get the stats working
+      const stats = {
+        getGeometryCount: () => {
+          this.instance.info.memory.geometries;
+        },
+        getTextureCount: () => {
+          this.instance.info.memory.textures;
+        },
+        getCallCount: () => {
+          this.instance.info.render.calls;
+        },
+        getFrameCount: () => {
+          this.instance.info.render.frame;
+        },
+        getTriangleCount: () => {
+          this.instance.info.render.triangles;
+        },
+      };
+
+      this.params = {
+        geometry: this.instance.info.memory.geometries,
+        textures: this.instance.info.memory.textures,
+        calls: this.instance.info.render.calls,
+        frame: this.instance.info.render.frame,
+        triangle: this.instance.info.render.triangles,
+      };
+
+      this.geometryCount = this.debug.tabs.pages[1].addMonitor(
+        this.params,
+        "geometry",
+        {
+          interval: 1000,
+          lineCount: 2,
+          min: -10,
+          max: +10,
+        }
+      );
+      this.textureCount = this.debug.tabs.pages[1].addMonitor(
+        this.params,
+        "textures",
+        {
+          interval: 1000,
+          lineCount: 2,
+          min: -10,
+          max: +10,
+        }
+      );
+      this.callCount = this.debug.tabs.pages[1].addMonitor(
+        this.params,
+        "calls",
+        {
+          interval: 1000,
+          lineCount: 2,
+          min: -10,
+          max: +10,
+        }
+      );
+      this.frameCount = this.debug.tabs.pages[1].addMonitor(
+        this.params,
+        "frame",
+        {
+          interval: 1000,
+          lineCount: 2,
+          min: -10,
+          max: +10,
+        }
+      );
+      this.triangleCount = this.debug.tabs.pages[1].addMonitor(
+        this.params,
+        "triangle",
+        {
+          interval: 1000,
+          lineCount: 2,
+          min: -10,
+          max: +10,
+        }
+      );
+      this.geometryCount.on("update", (e) => {
+        // console.log(stats.getGeometryCount());
+      });
     }
   }
 

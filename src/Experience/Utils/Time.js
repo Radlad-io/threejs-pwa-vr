@@ -25,10 +25,10 @@ export default class Time extends EventEmitter {
 
   initDebug() {
     if (this.debug.active) {
-      this.fpsGraph = this.debug.pane.addBlade({
+      this.fpsGraph = this.debug.tabs.pages[0].addBlade({
         view: "fpsgraph",
-        label: "Framerate",
-        lineCount: 2,
+        label: "framerate",
+        lineCount: 4,
       });
     }
   }
